@@ -31,6 +31,10 @@ sims4_cheat_codes = {
         "relationships.create_friends_for_sim": "Créer un ami aléatoire",
         "relationship.introduce_sim_to_all_others": "Permet de rencontrer tous les Sims. T'as la flemme d'aller au parc on dirait ?",
     },
+    "mode developpeur": {
+        "testingcheats on": "activé developpeur ",
+        "testingcheats off": "desactivé developpeur",
+    },
     # Ajoutez plus de catégories et de codes de triche ici...
 }
 
