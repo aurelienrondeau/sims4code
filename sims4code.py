@@ -97,6 +97,8 @@ sims4_cheat_codes = {
         "careers.demote Painter": "Rétrograde le Sim actif dans la carrière de peintre",
         "careers.promote Scientist": "Promeut le Sim actif dans la carrière de scientifique",
         "careers.demote Scientist": "Rétrograde le Sim actif dans la carrière de scientifique",
+        "careers.promote Scout": "Promeut le Sim actif dans la carrière de scout",
+        "careers.demote Scout": "Rétrograde le Sim actif dans la carrière de scout",
         "careers.promote SecretAgent": "Promeut le Sim actif dans la carrière d'agent secret",
         "careers.demote SecretAgent": "Rétrograde le Sim actif dans la carrière d'agent secret",
         "careers.promote SocialMedia": "Promeut le Sim actif dans la carrière des réseaux sociaux",
@@ -109,48 +111,46 @@ sims4_cheat_codes = {
         "careers.demote Writer": "Rétrograde le Sim actif dans la carrière d'écrivain"
     },
     "Divers": {
-        "testingcheats on": "Active les codes de triche",
-        "testingcheats off": "Désactive les codes de triche",
+        "testingcheats true": "Active les codes de triche",
+        "testingcheats false": "Désactive les codes de triche",
         "death.toggle [true/false]": "Active ou désactive la mort des Sims",
         "headlineeffects [on/off]": "Active ou désactive les effets de titre (plumbobs, bulles de pensée, etc.)"
     }
-    # Ajoutez plus de catégories et de codes de triche ici...
 }
 
-def copier_au_presse_papier():
-    categorie = categorie_combo.get()
-    code = code_triche_combo.get()
-    if categorie in sims4_cheat_codes and code in sims4_cheat_codes[categorie]:
-        pyperclip.copy(code)
-        statut_label.config(text=f"Le code '{code}' a été copié dans le presse-papiers.")
-    else:
-        statut_label.config(text="Erreur : Sélection invalide.")
-
+# Fonction pour mettre à jour les codes de triche disponibles
 def mettre_a_jour_code_combo(event):
     categorie = categorie_combo.get()
-    if categorie in sims4_cheat_codes:
-        code_triche_combo['values'] = list(sims4_cheat_codes[categorie].keys())
-        code_triche_combo.set('')  # Réinitialise la sélection de la liste déroulante des codes de triche
+    codes = list(sims4_cheat_codes.get(categorie, {}).keys())
+    code_triche_combo['values'] = codes
+    if codes:
+        code_triche_combo.current(0)
+        mettre_a_jour_description(None)
 
+# Fonction pour mettre à jour la description du code de triche sélectionné
 def mettre_a_jour_description(event):
     categorie = categorie_combo.get()
     code = code_triche_combo.get()
-    if categorie in sims4_cheat_codes and code in sims4_cheat_codes[categorie]:
-        description_text.delete(1.0, tk.END)
-        description_text.insert(tk.END, sims4_cheat_codes[categorie][code])
-    else:
-        description_text.delete(1.0, tk.END)
-        description_text.insert(tk.END, "Description non disponible.")
+    description = sims4_cheat_codes.get(categorie, {}).get(code, "Description non trouvée.")
+    description_text.delete(1.0, tk.END)
+    description_text.insert(tk.END, description)
 
+# Fonction pour copier le code de triche au presse-papier
+def copier_au_presse_papier():
+    code = code_triche_combo.get()
+    pyperclip.copy(code)
+    statut_label.config(text=f"Code '{code}' copié au presse-papier !")
+
+# Fonction pour définir le fond
 def set_background(image_path):
     try:
         bg_image = Image.open(image_path)
         bg_photo = ImageTk.PhotoImage(bg_image)
-        bg_label = tk.Label(root, image=bg_photo)  # root added
-        bg_label.image = bg_photo  # keep a reference to avoid garbage collection
+        bg_label = tk.Label(root, image=bg_photo)
+        bg_label.image = bg_photo
         bg_label.place(relwidth=1, relheight=1)
     except FileNotFoundError:
-        erreur_label = ttk.Label(root, text="Image de fond non trouvée.")  # root added
+        erreur_label = ttk.Label(root, text="Image de fond non trouvée.")
         erreur_label.place(relwidth=1, relheight=1)
 
 # Création de la fenêtre principale
@@ -163,21 +163,21 @@ root.iconbitmap("icon.ico")
 set_background('bk.png')
 
 # Ajout des widgets dans 'Codes'
-categorie_combo = ttk.Combobox(root, values=list(sims4_cheat_codes.keys()))  # root added
+categorie_combo = ttk.Combobox(root, values=list(sims4_cheat_codes.keys()))
 categorie_combo.bind('<<ComboboxSelected>>', mettre_a_jour_code_combo)
-categorie_combo.pack(pady=10)
+categorie_combo.pack(pady=10, fill='x')
 
-code_triche_combo = ttk.Combobox(root)  # root added
+code_triche_combo = ttk.Combobox(root)
 code_triche_combo.bind('<<ComboboxSelected>>', mettre_a_jour_description)
-code_triche_combo.pack(pady=10)
+code_triche_combo.pack(pady=10, fill='x')
 
-copier_bouton = ttk.Button(root, text="Copier le code", command=copier_au_presse_papier)  # root added
+copier_bouton = ttk.Button(root, text="Copier le code", command=copier_au_presse_papier)
 copier_bouton.pack(pady=10)
 
-description_text = tk.Text(root, wrap='word', height=4)  # root added
+description_text = tk.Text(root, wrap='word', height=4)
 description_text.pack(pady=10, expand=True, fill='both')
 
-statut_label = ttk.Label(root, text="")  # root added
+statut_label = ttk.Label(root, text="")
 statut_label.pack(pady=10)
 
 # Instructions pour ouvrir le champ de code dans Les Sims 4
@@ -187,17 +187,17 @@ Pour ouvrir le champ de code dans Les Sims 4, vous devez suivre les étapes suiv
 
 Maintenant, vous pouvez entrer n'importe quel code de triche que vous voulez utiliser dans le jeu.
 """
-instructions_label = ttk.Label(root, text=instructions)  # root added
+instructions_label = ttk.Label(root, text=instructions)
 instructions_label.pack(pady=10)
 
 # Ouvrez une image avec PIL (remplacez 'clavier.png' par le chemin de votre image)
 try:
     image = Image.open('clavier.png')
     tk_image = ImageTk.PhotoImage(image)
-    image_label = tk.Label(root, image=tk_image)  # root added
+    image_label = tk.Label(root, image=tk_image)
     image_label.pack(pady=10)
 except FileNotFoundError:
-    erreur_label = ttk.Label(root, text="Image non trouvée. Assurez-vous que 'clavier.png' est dans le bon répertoire.")  # root added
+    erreur_label = ttk.Label(root, text="Image non trouvée. Assurez-vous que 'clavier.png' est dans le bon répertoire.")
     erreur_label.pack(pady=10)
 
 # Lancement de la boucle principale
