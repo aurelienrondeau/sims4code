@@ -8,7 +8,12 @@ sims4_cheat_codes = {
     "Financiers": {
         "motherlode": "Ajoute 50 000 simflouz à votre compte de ménage",
         "rosebud": "Ajoute 1 000 simflouz à votre compte de ménage",
-        "kaching": "Ajoute 1 000 simflouz à votre compte de ménage"
+        "kaching": "Ajoute 1 000 simflouz à votre compte de ménage",
+        "money 100000": "Définit les simflouz de votre ménage à 100 000",
+        "money 200000": "Définit les simflouz de votre ménage à 200 000",
+        "money 300000": "Définit les simflouz de votre ménage à 300 000",
+        "money 9900000": "Définit les simflouz de votre ménage à 9 900 000",
+        "money 9999999": "Définit les simflouz de votre ménage à 9 999 999"
     },
     "Immobilier": {
         "freerealestate on": "Rend toutes les maisons gratuites",
