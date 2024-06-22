@@ -38,7 +38,7 @@ sims4_cheat_codes = {
         "sims.remove_all_buffs": "Supprime tous les buffs du Sim actif",
         "sims.fill_all_commodities": "Remplit toutes les commodités du Sim actif"
     },
-    "Compétences Adultes": {
+    "Compétences": {
         "Acteur": "stats.set_skill_level Major_Acting 10",
         "Archéologie": "stats.set_skill_level Major_Archaeology 10",
         "Bien-être": "stats.set_skill_level AdultMajor_Wellness 10",
