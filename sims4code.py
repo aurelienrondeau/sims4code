@@ -5,6 +5,10 @@ from PIL import Image, ImageTk
 
 # Dictionnaire des codes de triche Sims 4 regroupés par catégorie
 sims4_cheat_codes = {
+    "debug":{
+        "testingcheats true": "Active les codes de triche",
+        "testingcheats false": "Désactive les codes de triche"
+    },
     "Financiers": {
         "motherlode": "Ajoute 50 000 simflouz à votre compte de ménage",
         "rosebud": "Ajoute 1 000 simflouz à votre compte de ménage",
